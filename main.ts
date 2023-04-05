@@ -44,13 +44,6 @@ function showIntro () {
     basic.pause(500)
     basic.showNumber(rightButtonTime)
     basic.pause(200)
-    basic.showLeds(`
-        . . # . .
-        . . . . .
-        # . . . #
-        . . . . .
-        . . . . .
-        `)
 }
 function updatePointerPosition () {
     if (col == 0) {
@@ -64,20 +57,28 @@ input.onButtonPressed(Button.A, function () {
     countDownMinutes(leftButtonTime)
 })
 function countDownMinutes (duration: number) {
+    basic.clearScreen()
     basic.showNumber(duration)
     basic.pause(100)
     reset()
     wait = Math.round(duration * minute / 25)
     makeSteps(wait)
-    complete(true)
+    complete(false)
 }
 function complete (playSound: boolean) {
     if (playSound) {
         music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 200, 600, 255, 0, 150, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.InBackground)
     }
     basic.showIcon(IconNames.Yes)
-    basic.pause(5 / second)
+    basic.pause(5 * second)
     basic.clearScreen()
+    basic.showLeds(`
+        . . # . .
+        . . . . .
+        # . . . #
+        . . . . .
+        . . . . .
+        `)
 }
 input.onButtonPressed(Button.B, function () {
     countDownMinutes(rightButtonTime)
@@ -114,7 +115,16 @@ let maxCol = 0
 let maxRow = 0
 let topButtonTime = 0
 setUp()
-showIntro()
+if (false) {
+    showIntro()
+}
+basic.showLeds(`
+    . . # . .
+    . . . . .
+    # . . . #
+    . . . . .
+    . . . . .
+    `)
 basic.forever(function () {
 	
 })
